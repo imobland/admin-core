@@ -8,6 +8,7 @@ import PropertyLocation from "./PropertyLocation";
 import City from "./City";
 import State from "./State";
 import District from "./District";
+import PropertySearch from "./PropertySearch";
 
 export {
   Property,
@@ -20,4 +21,5 @@ export {
   City,
   State,
   District,
+  PropertySearch,
 };

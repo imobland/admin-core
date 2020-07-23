@@ -8,7 +8,7 @@
       exports: {}
     };
     factory(mod.exports, global.sequelize);
-    global.Realestate = mod.exports;
+    global.PropertySearch = mod.exports;
   }
 })(typeof globalThis !== "undefined" ? globalThis : typeof self !== "undefined" ? self : this, function (_exports, _sequelize) {
   "use strict";
@@ -23,40 +23,42 @@
 
   function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-  class Realestate extends _sequelize.Model {
+  class PropertySearch extends _sequelize.Model {
     //
     static init(sequelize) {
       //
       this.prototype.connection = sequelize;
       const fields = {
-        realestate_id: {
-          type: _sequelize.default.INTEGER,
+        property_id: {
+          type: _sequelize.default.NUMBER,
           primaryKey: true
         },
-        name: _sequelize.default.STRING,
-        nickname: _sequelize.default.STRING,
-        email: _sequelize.default.STRING,
-        domain: _sequelize.default.STRING,
-        subdomain: _sequelize.default.STRING,
-        nickname: _sequelize.default.STRING,
-        date_created: _sequelize.default.STRING,
-        last_modified: _sequelize.default.STRING,
-        address: _sequelize.default.STRING,
-        picture_application_token: _sequelize.default.STRING,
-        picture_application_id: _sequelize.default.STRING,
-        country_id: _sequelize.default.STRING,
-        state_id: _sequelize.default.STRING,
-        city_id: _sequelize.default.STRING,
-        district_id: _sequelize.default.STRING,
-        postalcode: _sequelize.default.STRING,
-        latitude: _sequelize.default.STRING,
-        longitude: _sequelize.default.STRING,
-        preferences: _sequelize.default.STRING,
-        use_friendly_url: _sequelize.default.STRING,
-        config: _sequelize.default.STRING
+        realestate_id: _sequelize.default.NUMBER,
+        user_id: _sequelize.default.NUMBER,
+        words: _sequelize.default.STRING,
+        description: _sequelize.default.STRING,
+        reference: _sequelize.default.STRING,
+        published: _sequelize.default.NUMBER,
+        highlighted: _sequelize.default.NUMBER,
+        price: _sequelize.default.NUMBER,
+        type_id: _sequelize.default.NUMBER,
+        operation_id: _sequelize.default.NUMBER,
+        objective_id: _sequelize.default.NUMBER,
+        city_id: _sequelize.default.NUMBER,
+        district_id: _sequelize.default.NUMBER,
+        state_id: _sequelize.default.NUMBER,
+        lat: _sequelize.default.NUMBER,
+        lon: _sequelize.default.NUMBER,
+        last_modified: _sequelize.default.DATE,
+        date_created: _sequelize.default.DATE,
+        highlighted_date: _sequelize.default.DATE,
+        token: _sequelize.default.STRING,
+        title: _sequelize.default.STRING,
+        tags: _sequelize.default.STRING // __date_cached: Sequelize.DATE,
+
       };
       super.init(fields, {
-        tableName: "realestate",
+        tableName: "property_search",
         sequelize
       });
       return this;
@@ -71,6 +73,6 @@
 
   }
 
-  var _default = Realestate;
+  var _default = PropertySearch;
   _exports.default = _default;
 });

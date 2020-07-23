@@ -1,16 +1,16 @@
 (function (global, factory) {
   if (typeof define === "function" && define.amd) {
-    define(["exports", "./Property", "./PropertyType", "./Realestate", "./Picture", "./Agent", "./Client", "./PropertyLocation", "./City", "./State", "./District"], factory);
+    define(["exports", "./Property", "./PropertyType", "./Realestate", "./Picture", "./Agent", "./Client", "./PropertyLocation", "./City", "./State", "./District", "./PropertySearch"], factory);
   } else if (typeof exports !== "undefined") {
-    factory(exports, require("./Property"), require("./PropertyType"), require("./Realestate"), require("./Picture"), require("./Agent"), require("./Client"), require("./PropertyLocation"), require("./City"), require("./State"), require("./District"));
+    factory(exports, require("./Property"), require("./PropertyType"), require("./Realestate"), require("./Picture"), require("./Agent"), require("./Client"), require("./PropertyLocation"), require("./City"), require("./State"), require("./District"), require("./PropertySearch"));
   } else {
     var mod = {
       exports: {}
     };
-    factory(mod.exports, global.Property, global.PropertyType, global.Realestate, global.Picture, global.Agent, global.Client, global.PropertyLocation, global.City, global.State, global.District);
+    factory(mod.exports, global.Property, global.PropertyType, global.Realestate, global.Picture, global.Agent, global.Client, global.PropertyLocation, global.City, global.State, global.District, global.PropertySearch);
     global.index = mod.exports;
   }
-})(typeof globalThis !== "undefined" ? globalThis : typeof self !== "undefined" ? self : this, function (_exports, _Property, _PropertyType, _Realestate, _Picture, _Agent, _Client, _PropertyLocation, _City, _State, _District) {
+})(typeof globalThis !== "undefined" ? globalThis : typeof self !== "undefined" ? self : this, function (_exports, _Property, _PropertyType, _Realestate, _Picture, _Agent, _Client, _PropertyLocation, _City, _State, _District, _PropertySearch) {
   "use strict";
 
   Object.defineProperty(_exports, "__esModule", {
@@ -76,6 +76,12 @@
       return _District.default;
     }
   });
+  Object.defineProperty(_exports, "PropertySearch", {
+    enumerable: true,
+    get: function () {
+      return _PropertySearch.default;
+    }
+  });
   _Property = _interopRequireDefault(_Property);
   _PropertyType = _interopRequireDefault(_PropertyType);
   _Realestate = _interopRequireDefault(_Realestate);
@@ -86,6 +92,7 @@
   _City = _interopRequireDefault(_City);
   _State = _interopRequireDefault(_State);
   _District = _interopRequireDefault(_District);
+  _PropertySearch = _interopRequireDefault(_PropertySearch);
 
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 });

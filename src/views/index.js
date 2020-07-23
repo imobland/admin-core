@@ -1,2 +1,3 @@
 import PropertyView from "./PropertyView";
-export { PropertyView };
+import PropertySearch from "./PropertySearch";
+export { PropertyView, PropertySearch };
