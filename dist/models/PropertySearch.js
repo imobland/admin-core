@@ -25,7 +25,7 @@
 
   class PropertySearch extends _sequelize.Model {
     //
-    static init(sequelize) {
+    static init(sequelize, config = {}) {
       //
       this.prototype.connection = sequelize;
       const fields = {
@@ -59,7 +59,8 @@
       };
       super.init(fields, {
         tableName: "property_search",
-        sequelize
+        sequelize,
+        ...config
       });
       return this;
     }

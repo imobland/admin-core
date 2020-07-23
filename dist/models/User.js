@@ -28,7 +28,7 @@
   // import authConfig from "../config/auth";
   class User extends _sequelize.Model {
     //
-    static init(sequelize) {
+    static init(sequelize, config = {}) {
       //
       super.init({
         name: _sequelize.default.STRING,

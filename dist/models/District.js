@@ -25,7 +25,7 @@
 
   class District extends _sequelize.Model {
     //
-    static init(sequelize) {
+    static init(sequelize, config = {}) {
       //
       this.prototype.connection = sequelize;
       const fields = {
@@ -42,7 +42,8 @@
       };
       super.init(fields, {
         tableName: "district",
-        sequelize
+        sequelize,
+        ...config
       });
       return this;
     }

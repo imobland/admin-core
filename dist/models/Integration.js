@@ -25,7 +25,7 @@
 
   class Integration extends _sequelize.Model {
     //
-    static init(sequelize) {
+    static init(sequelize, config = {}) {
       //
       const fields = {
         enabled: {
@@ -45,7 +45,8 @@
         created_at: _sequelize.default.DATE
       };
       super.init(fields, {
-        sequelize
+        sequelize,
+        ...config
       });
       return this;
     } // ---------------------------------------------------------------------------

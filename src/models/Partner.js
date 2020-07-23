@@ -3,7 +3,7 @@ import _ from "lodash";
 
 class Partner extends Model {
   //
-  static init(sequelize) {
+  static init(sequelize, config = {}) {
     //
     const fields = {
       ref: Sequelize.STRING,
@@ -61,6 +61,7 @@ class Partner extends Model {
 
     super.init(fields, {
       sequelize,
+      ...config,
     });
 
     return this;

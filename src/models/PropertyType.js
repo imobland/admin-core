@@ -2,7 +2,7 @@ import Sequelize, { Model } from "sequelize";
 
 class PropertyType extends Model {
   //
-  static init(sequelize) {
+  static init(sequelize, config = {}) {
     //
     this.prototype.connection = sequelize;
 
@@ -21,6 +21,7 @@ class PropertyType extends Model {
     super.init(fields, {
       tableName: "property_type",
       sequelize,
+      ...config,
     });
 
     return this;

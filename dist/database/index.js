@@ -39,34 +39,35 @@
   // import Integration from "../models/Integration";
   class DB {
     //
-    static connect(config) {
+    static connect(config = {}) {
       //
       const sequelize = new _sequelize.default({ ..._database.default,
         ...config
       });
       console.log("Conectado ao DB");
+      const models = config.models ? config.models : {};
 
-      _Property.default.init(sequelize);
+      _Property.default.init(sequelize, models.Property);
 
-      _PropertyType.default.init(sequelize);
+      _PropertyType.default.init(sequelize, models.PropertyType);
 
-      _Realestate.default.init(sequelize);
+      _Realestate.default.init(sequelize, models.Realestate);
 
-      _Picture.default.init(sequelize);
+      _Picture.default.init(sequelize, models.Picture);
 
-      _Agent.default.init(sequelize);
+      _Agent.default.init(sequelize, models.Agent);
 
-      _Client.default.init(sequelize);
+      _Client.default.init(sequelize, models.Client);
 
-      _PropertyLocation.default.init(sequelize);
+      _PropertyLocation.default.init(sequelize, models.PropertyLocation);
 
-      _PropertySearch.default.init(sequelize);
+      _PropertySearch.default.init(sequelize, models.PropertySearch);
 
-      _City.default.init(sequelize);
+      _City.default.init(sequelize, models.City);
 
-      _State.default.init(sequelize);
+      _State.default.init(sequelize, models.State);
 
-      _District.default.init(sequelize);
+      _District.default.init(sequelize, models.District);
 
       _Property.default.associate(sequelize.models);
 

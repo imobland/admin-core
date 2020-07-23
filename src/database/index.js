@@ -19,7 +19,7 @@ import District from "../models/District";
 
 class DB {
   //
-  static connect(config) {
+  static connect(config = {}) {
     //
     const sequelize = new Sequelize({
       ...dbConfig,
@@ -28,17 +28,19 @@ class DB {
 
     console.log("Conectado ao DB");
 
-    Property.init(sequelize);
-    PropertyType.init(sequelize);
-    Realestate.init(sequelize);
-    Picture.init(sequelize);
-    Agent.init(sequelize);
-    Client.init(sequelize);
-    PropertyLocation.init(sequelize);
-    PropertySearch.init(sequelize);
-    City.init(sequelize);
-    State.init(sequelize);
-    District.init(sequelize);
+    const models = config.models ? config.models : {};
+
+    Property.init(sequelize, models.Property);
+    PropertyType.init(sequelize, models.PropertyType);
+    Realestate.init(sequelize, models.Realestate);
+    Picture.init(sequelize, models.Picture);
+    Agent.init(sequelize, models.Agent);
+    Client.init(sequelize, models.Client);
+    PropertyLocation.init(sequelize, models.PropertyLocation);
+    PropertySearch.init(sequelize, models.PropertySearch);
+    City.init(sequelize, models.City);
+    State.init(sequelize, models.State);
+    District.init(sequelize, models.District);
 
     Property.associate(sequelize.models);
     PropertyType.associate(sequelize.models);

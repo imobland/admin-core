@@ -25,7 +25,7 @@
 
   class Agent extends _sequelize.Model {
     //
-    static init(sequelize) {
+    static init(sequelize, config = {}) {
       //
       this.prototype.connection = sequelize;
       const fields = {
@@ -37,7 +37,8 @@
       };
       super.init(fields, {
         tableName: "agent",
-        sequelize
+        sequelize,
+        ...config
       });
       return this;
     }

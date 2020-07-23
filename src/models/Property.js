@@ -3,7 +3,7 @@ import _ from "lodash";
 
 class Property extends Model {
   //
-  static init(sequelize) {
+  static init(sequelize, config = {}) {
     //
     this.prototype.connection = sequelize;
 
@@ -53,6 +53,7 @@ class Property extends Model {
     super.init(fields, {
       tableName: "property",
       sequelize,
+      ...config,
     });
 
     return this;

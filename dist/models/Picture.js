@@ -25,7 +25,7 @@
 
   class Picture extends _sequelize.Model {
     //
-    static init(sequelize) {
+    static init(sequelize, config = {}) {
       //
       this.prototype.connection = sequelize;
       const fields = {
@@ -53,7 +53,8 @@
       };
       super.init(fields, {
         tableName: "picture",
-        sequelize
+        sequelize,
+        ...config
       });
       return this;
     }

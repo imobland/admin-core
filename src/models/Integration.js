@@ -2,7 +2,7 @@ import Sequelize, { Model } from "sequelize";
 
 class Integration extends Model {
   //
-  static init(sequelize) {
+  static init(sequelize, config = {}) {
     //
     const fields = {
       enabled: {
@@ -24,6 +24,7 @@ class Integration extends Model {
 
     super.init(fields, {
       sequelize,
+      ...config,
     });
 
     return this;

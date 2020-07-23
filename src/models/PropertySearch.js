@@ -2,7 +2,7 @@ import Sequelize, { Model } from "sequelize";
 
 class PropertySearch extends Model {
   //
-  static init(sequelize) {
+  static init(sequelize, config = {}) {
     //
     this.prototype.connection = sequelize;
 
@@ -39,6 +39,7 @@ class PropertySearch extends Model {
     super.init(fields, {
       tableName: "property_search",
       sequelize,
+      ...config,
     });
 
     return this;

@@ -9,7 +9,13 @@ describe("Describe", () => {
   //
   test("Test", async () => {
     //
-    DB.connect();
+    DB.connect({
+      models: {
+        Property: {
+          tableName: "property",
+        },
+      },
+    });
 
     // const { PropertyService } = Services;
     const { PropertyView, PropertySearch: PSearch } = Views;
@@ -20,12 +26,14 @@ describe("Describe", () => {
 
     const property = await Property.findByPk(property_id);
 
-    const $property = await PropertySearch.findByPk(property_id);
-    console.log(JSON.stringify($property, null, 2));
+    console.log(JSON.stringify(property, null, 2));
 
-    const _property = await PSearch.build(property);
+    // const $property = await PropertySearch.findByPk(property_id);
+    // console.log(JSON.stringify($property, null, 2));
 
-    console.log(JSON.stringify(_property, null, 2));
+    // const _property = await PSearch.build(property);
+
+    // console.log(JSON.stringify(_property, null, 2));
 
     // const $property = await PropertyView.build(property);
 

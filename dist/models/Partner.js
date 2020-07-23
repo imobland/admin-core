@@ -28,7 +28,7 @@
 
   class Partner extends _sequelize.Model {
     //
-    static init(sequelize) {
+    static init(sequelize, config = {}) {
       //
       const fields = {
         ref: _sequelize.default.STRING,
@@ -84,7 +84,8 @@
         }
       };
       super.init(fields, {
-        sequelize
+        sequelize,
+        ...config
       });
       return this;
     } // ---------------------------------------------------------------------------

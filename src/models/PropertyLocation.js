@@ -2,7 +2,7 @@ import Sequelize, { Model } from "sequelize";
 
 class PropertyLocation extends Model {
   //
-  static init(sequelize) {
+  static init(sequelize, config = {}) {
     //
     this.prototype.connection = sequelize;
 
@@ -36,6 +36,7 @@ class PropertyLocation extends Model {
     super.init(fields, {
       tableName: "property_location",
       sequelize,
+      ...config,
     });
 
     return this;
