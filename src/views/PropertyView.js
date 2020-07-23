@@ -87,7 +87,9 @@ export default class PropertyView {
       replacements: property,
     });
 
-    $property.integrations = _.get(result, "[0].items", "").split(",");
+    const integrations = _.get(result, "[0].items", "");
+
+    $property.integrations = integrations ? integrations.split(",") : [];
   }
 
   static fill_basic($property, property) {
