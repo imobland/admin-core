@@ -80,7 +80,10 @@
       let [result] = await property.connection.query(sql, {
         replacements: property
       });
-      $property.integrations = _lodash.default.get(result, "[0].items", "").split(",");
+
+      const integrations = _lodash.default.get(result, "[0].items", "");
+
+      $property.integrations = integrations ? integrations.split(",") : [];
     }
 
     static fill_basic($property, property) {
