@@ -9,6 +9,7 @@ import City from "./City";
 import State from "./State";
 import District from "./District";
 import PropertySearch from "./PropertySearch";
+import SearchItem from "./SearchItem";
 
 export {
   Property,
@@ -22,4 +23,5 @@ export {
   State,
   District,
   PropertySearch,
+  SearchItem,
 };
