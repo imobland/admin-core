@@ -269,11 +269,12 @@ export default class PropertyView {
     const {
       realestate_id,
       name,
+      nickname,
     } = await Cache.get(`realestate/${property.realestate_id}`, () =>
       Realestate.findByPk(property.realestate_id)
     );
 
-    $property.realestate = { id: realestate_id, name };
+    $property.realestate = { id: realestate_id, name, nickname };
   }
 
   static async picture_server(realestate_id) {
