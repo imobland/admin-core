@@ -245,11 +245,13 @@
       //
       const {
         realestate_id,
-        name
+        name,
+        nickname
       } = await _Cache.default.get(`realestate/${property.realestate_id}`, () => _models.Realestate.findByPk(property.realestate_id));
       $property.realestate = {
         id: realestate_id,
-        name
+        name,
+        nickname
       };
     }
 
