@@ -1,5 +1,3 @@
-console.log("CONNECTANDO", process.env.DB_USER);
-
 module.exports = {
   dialect: "mysql",
 

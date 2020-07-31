@@ -17,6 +17,7 @@ import City from "../models/City";
 import State from "../models/State";
 import District from "../models/District";
 import SearchItem from "../models/SearchItem";
+import Integration from "../models/Integration";
 
 class DB {
   //
@@ -43,6 +44,7 @@ class DB {
     State.init(sequelize, models.State);
     District.init(sequelize, models.District);
     SearchItem.init(sequelize, models.SearchItem);
+    Integration.init(sequelize, models.Integration);
 
     Property.associate(sequelize.models);
     PropertyType.associate(sequelize.models);
@@ -56,6 +58,7 @@ class DB {
     State.associate(sequelize.models);
     District.associate(sequelize.models);
     SearchItem.associate(sequelize.models);
+    Integration.associate(sequelize.models);
 
     return sequelize;
   }

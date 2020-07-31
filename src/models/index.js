@@ -10,6 +10,7 @@ import State from "./State";
 import District from "./District";
 import PropertySearch from "./PropertySearch";
 import SearchItem from "./SearchItem";
+import Integration from "./Integration";
 
 export {
   Property,
@@ -24,4 +25,5 @@ export {
   District,
   PropertySearch,
   SearchItem,
+  Integration,
 };
