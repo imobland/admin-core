@@ -1,12 +1,14 @@
 require("dotenv/config");
 import service from "../src/services/IntegrationService";
-import { Models } from "../src";
+import { Models, Services } from "../src";
+
+const { IntegrationService } = Services;
 const { Realestate, Integration } = Models;
 
 async function runAsync() {
   //
   // try {
-  //   var success = await service.bindIntegrationByKeys("devsite1", "vivareal");
+  //   var success = await IntegrationService.bindIntegrationByKeys("devsite1", "vivareal");
   // } catch (e) {
   //   if (e.original && e.original.code == "ER_DUP_ENTRY") {
   //     console.log({ message: "already-connected" });
@@ -15,7 +17,7 @@ async function runAsync() {
   //   throw e
   // }
 
-  await service.unbindIntegrationByKeys("devsite1", "vivareal");
+  await IntegrationService.unbindIntegrationByKeys("devsite1", "vivareal");
 }
 
 runAsync();

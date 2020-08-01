@@ -1,3 +1,4 @@
 import PropertyService from "./PropertyService";
+import IntegrationService from "./IntegrationService";
 
-export { PropertyService };
+export { PropertyService, IntegrationService };
