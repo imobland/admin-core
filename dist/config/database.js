@@ -13,7 +13,6 @@
 })(typeof globalThis !== "undefined" ? globalThis : typeof self !== "undefined" ? self : this, function () {
   "use strict";
 
-  console.log("CONNECTANDO", process.env.DB_USER);
   module.exports = {
     dialect: "mysql",
     host: process.env.DB_HOST,

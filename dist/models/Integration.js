@@ -28,23 +28,14 @@
     static init(sequelize, config = {}) {
       //
       const fields = {
-        enabled: {
+        integration_id: {
           type: _sequelize.default.INTEGER,
-          defaultValue: 1
+          primaryKey: true
         },
-        config: {
-          type: _sequelize.default.TEXT,
-          defaultValue: "{}",
-          get: function () {
-            return JSON.parse(this.getDataValue("config"));
-          },
-          set: function (value) {
-            this.setDataValue("config", JSON.stringify(value));
-          }
-        },
-        created_at: _sequelize.default.DATE
+        nickname: _sequelize.default.NUMBER
       };
       super.init(fields, {
+        tableName: "integration",
         sequelize,
         ...config
       });
@@ -52,19 +43,9 @@
     } // ---------------------------------------------------------------------------
 
 
-    static associate(models) {
-      this.belongsTo(models.User, {
-        foreignKey: "user_id",
-        as: "users"
-      });
-      this.belongsTo(models.Client, {
-        foreignKey: "client_id",
-        as: "clients"
-      });
-      this.belongsTo(models.Partner, {
-        foreignKey: "partner_id",
-        as: "partner"
-      });
+    static associate(models) {// this.belongsTo(models.User, { foreignKey: "user_id", as: "users" });
+      // this.belongsTo(models.Client, { foreignKey: "client_id", as: "clients" });
+      // this.belongsTo(models.Partner, { foreignKey: "partner_id", as: "partner" });
     } // ---------------------------------------------------------------------------
 
 
