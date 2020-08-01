@@ -39,73 +39,82 @@
   // import Client from "../models/Client";
   // import Partner from "../models/Partner";
   // import Integration from "../models/Integration";
-  class DB {
+  var sequelize;
+
+  const connect = (config = {}) => {
     //
-    static connect(config = {}) {
-      //
-      const sequelize = new _sequelize.default({ ..._database.default,
-        ...config
-      });
-      console.log("Conectado ao DB");
-      const models = config.models ? config.models : {};
+    sequelize = new _sequelize.default({ ..._database.default,
+      ...config
+    });
+    console.log("Conectado ao DB");
+    const models = config.models ? config.models : {};
 
-      _Property.default.init(sequelize, models.Property);
+    _Property.default.init(sequelize, models.Property);
 
-      _PropertyType.default.init(sequelize, models.PropertyType);
+    _PropertyType.default.init(sequelize, models.PropertyType);
 
-      _Realestate.default.init(sequelize, models.Realestate);
+    _Realestate.default.init(sequelize, models.Realestate);
 
-      _Picture.default.init(sequelize, models.Picture);
+    _Picture.default.init(sequelize, models.Picture);
 
-      _Agent.default.init(sequelize, models.Agent);
+    _Agent.default.init(sequelize, models.Agent);
 
-      _Client.default.init(sequelize, models.Client);
+    _Client.default.init(sequelize, models.Client);
 
-      _PropertyLocation.default.init(sequelize, models.PropertyLocation);
+    _PropertyLocation.default.init(sequelize, models.PropertyLocation);
 
-      _PropertySearch.default.init(sequelize, models.PropertySearch);
+    _PropertySearch.default.init(sequelize, models.PropertySearch);
 
-      _City.default.init(sequelize, models.City);
+    _City.default.init(sequelize, models.City);
 
-      _State.default.init(sequelize, models.State);
+    _State.default.init(sequelize, models.State);
 
-      _District.default.init(sequelize, models.District);
+    _District.default.init(sequelize, models.District);
 
-      _SearchItem.default.init(sequelize, models.SearchItem);
+    _SearchItem.default.init(sequelize, models.SearchItem);
 
-      _Integration.default.init(sequelize, models.Integration);
+    _Integration.default.init(sequelize, models.Integration);
 
-      _Property.default.associate(sequelize.models);
+    _Property.default.associate(sequelize.models);
 
-      _PropertyType.default.associate(sequelize.models);
+    _PropertyType.default.associate(sequelize.models);
 
-      _Realestate.default.associate(sequelize.models);
+    _Realestate.default.associate(sequelize.models);
 
-      _Picture.default.associate(sequelize.models);
+    _Picture.default.associate(sequelize.models);
 
-      _Agent.default.associate(sequelize.models);
+    _Agent.default.associate(sequelize.models);
 
-      _Client.default.associate(sequelize.models);
+    _Client.default.associate(sequelize.models);
 
-      _PropertyLocation.default.associate(sequelize.models);
+    _PropertyLocation.default.associate(sequelize.models);
 
-      _PropertySearch.default.associate(sequelize.models);
+    _PropertySearch.default.associate(sequelize.models);
 
-      _City.default.associate(sequelize.models);
+    _City.default.associate(sequelize.models);
 
-      _State.default.associate(sequelize.models);
+    _State.default.associate(sequelize.models);
 
-      _District.default.associate(sequelize.models);
+    _District.default.associate(sequelize.models);
 
-      _SearchItem.default.associate(sequelize.models);
+    _SearchItem.default.associate(sequelize.models);
 
-      _Integration.default.associate(sequelize.models);
+    _Integration.default.associate(sequelize.models);
 
-      return sequelize;
+    return sequelize;
+  };
+
+  const getConnection = () => {
+    if (!sequelize) {
+      throw "database not connected";
     }
 
-  }
+    return sequelize;
+  };
 
-  var _default = DB;
+  var _default = {
+    connect,
+    getConnection
+  };
   _exports.default = _default;
 });

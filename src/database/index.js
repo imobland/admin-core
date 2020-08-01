@@ -19,49 +19,55 @@ import District from "../models/District";
 import SearchItem from "../models/SearchItem";
 import Integration from "../models/Integration";
 
-class DB {
+var sequelize;
+
+const connect = (config = {}) => {
   //
-  static connect(config = {}) {
-    //
-    const sequelize = new Sequelize({
-      ...dbConfig,
-      ...config,
-    });
+  sequelize = new Sequelize({ ...dbConfig, ...config });
 
-    console.log("Conectado ao DB");
+  console.log("Conectado ao DB");
 
-    const models = config.models ? config.models : {};
+  const models = config.models ? config.models : {};
 
-    Property.init(sequelize, models.Property);
-    PropertyType.init(sequelize, models.PropertyType);
-    Realestate.init(sequelize, models.Realestate);
-    Picture.init(sequelize, models.Picture);
-    Agent.init(sequelize, models.Agent);
-    Client.init(sequelize, models.Client);
-    PropertyLocation.init(sequelize, models.PropertyLocation);
-    PropertySearch.init(sequelize, models.PropertySearch);
-    City.init(sequelize, models.City);
-    State.init(sequelize, models.State);
-    District.init(sequelize, models.District);
-    SearchItem.init(sequelize, models.SearchItem);
-    Integration.init(sequelize, models.Integration);
+  Property.init(sequelize, models.Property);
+  PropertyType.init(sequelize, models.PropertyType);
+  Realestate.init(sequelize, models.Realestate);
+  Picture.init(sequelize, models.Picture);
+  Agent.init(sequelize, models.Agent);
+  Client.init(sequelize, models.Client);
+  PropertyLocation.init(sequelize, models.PropertyLocation);
+  PropertySearch.init(sequelize, models.PropertySearch);
+  City.init(sequelize, models.City);
+  State.init(sequelize, models.State);
+  District.init(sequelize, models.District);
+  SearchItem.init(sequelize, models.SearchItem);
+  Integration.init(sequelize, models.Integration);
 
-    Property.associate(sequelize.models);
-    PropertyType.associate(sequelize.models);
-    Realestate.associate(sequelize.models);
-    Picture.associate(sequelize.models);
-    Agent.associate(sequelize.models);
-    Client.associate(sequelize.models);
-    PropertyLocation.associate(sequelize.models);
-    PropertySearch.associate(sequelize.models);
-    City.associate(sequelize.models);
-    State.associate(sequelize.models);
-    District.associate(sequelize.models);
-    SearchItem.associate(sequelize.models);
-    Integration.associate(sequelize.models);
+  Property.associate(sequelize.models);
+  PropertyType.associate(sequelize.models);
+  Realestate.associate(sequelize.models);
+  Picture.associate(sequelize.models);
+  Agent.associate(sequelize.models);
+  Client.associate(sequelize.models);
+  PropertyLocation.associate(sequelize.models);
+  PropertySearch.associate(sequelize.models);
+  City.associate(sequelize.models);
+  State.associate(sequelize.models);
+  District.associate(sequelize.models);
+  SearchItem.associate(sequelize.models);
+  Integration.associate(sequelize.models);
 
-    return sequelize;
+  return sequelize;
+};
+
+const getConnection = () => {
+  if (!sequelize) {
+    throw "database not connected";
   }
-}
+  return sequelize;
+};
 
-export default DB;
+export default {
+  connect,
+  getConnection,
+};

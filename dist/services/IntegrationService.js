@@ -21,16 +21,8 @@
 
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-  require("dotenv/config");
-
-  const connection = _database.default.connect({
-    host: process.env.DB_HOST,
-    username: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.DB_NAME
-  });
-
   async function bindIntegrationByKeys(realestate_key, integration_key) {
+    //
     const [realestate, integration] = await Promise.all([_models.Realestate.findOne({
       where: {
         nickname: realestate_key
@@ -54,6 +46,9 @@
 
     const integration_id = integration.integration_id;
     const realestate_id = realestate.realestate_id;
+
+    const connection = _database.default.getConnection();
+
     const [r1, r2] = await Promise.all([connection.query(`INSERT INTO \`integration_realestate\` (\`integration_id\`, \`realestate_id\`) 
           VALUES (':integration_id', ':realestate_id');
         `, {
@@ -97,6 +92,9 @@
 
     const integration_id = integration.integration_id;
     const realestate_id = realestate.realestate_id;
+
+    const connection = _database.default.getConnection();
+
     const [r1, r2] = await Promise.all([connection.query(`DELETE FROM \`integration_realestate\` 
         WHERE integration_id = ':integration_id '
         AND realestate_id = ':realestate_id'

@@ -1,15 +1,9 @@
 import DB from "../database";
+
 import { Realestate, Integration } from "../models";
 
-require("dotenv/config");
-const connection = DB.connect({
-  host: process.env.DB_HOST,
-  username: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  database: process.env.DB_NAME,
-});
-
 async function bindIntegrationByKeys(realestate_key, integration_key) {
+  //
   const [realestate, integration] = await Promise.all([
     Realestate.findOne({ where: { nickname: realestate_key } }),
     Integration.findOne({ where: { nickname: integration_key } }),
@@ -27,6 +21,8 @@ async function bindIntegration(realestate, integration) {
 
   const integration_id = integration.integration_id;
   const realestate_id = realestate.realestate_id;
+
+  const connection = DB.getConnection();
 
   const [r1, r2] = await Promise.all([
     connection.query(
@@ -65,6 +61,8 @@ async function unbindIntegration(realestate, integration) {
 
   const integration_id = integration.integration_id;
   const realestate_id = realestate.realestate_id;
+
+  const connection = DB.getConnection();
 
   const [r1, r2] = await Promise.all([
     connection.query(
