@@ -7,13 +7,13 @@ class SearchItem extends Model {
     this.prototype.connection = sequelize;
 
     const fields = {
-      search_item_id: {
+      primary: {
         type: Sequelize.NUMBER,
         primaryKey: true,
       },
       realestate_id: Sequelize.NUMBER,
       type: Sequelize.STRING,
-      primary: Sequelize.NUMBER,
+      // primary: Sequelize.NUMBER,
       title: Sequelize.STRING,
       content: Sequelize.STRING,
       tags: Sequelize.STRING,

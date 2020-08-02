@@ -23,9 +23,15 @@ const PropertyAttrService = {
       property_type_attr p 
       ON p.property_type_attr_id=c.property_type_attr_id;`;
 
-    let [results] = await property.connection.query(sql, {
-      replacements: property,
-    });
+    let [results] = await Cache.get(
+      `property/${property.property_id}/attrs`,
+      () => {
+        console.log(`property/${property.property_id}/attrs`);
+        return property.connection.query(sql, {
+          replacements: property,
+        });
+      }
+    );
 
     return results;
   },
@@ -63,7 +69,7 @@ export default class PropertyView {
       this.fill_tags($property, property),
       this.fill_type($property, property),
       this.fill_realestate($property, property),
-      this.fill_agent($property, property),
+      // this.fill_agent($property, property),
       this.fill_location($property, property),
       this.fill_pictures($property, property),
       this.fill_integrations($property, property),
@@ -131,7 +137,10 @@ export default class PropertyView {
     //
     const data = {};
 
-    const location = await PropertyLocation.findByPk(property.property_id);
+    const location = await Cache.get(`location/${property.property_id}`, () => {
+      console.log(`\n\n>>>>> GET location/${property.property_id}`);
+      return PropertyLocation.findByPk(property.property_id);
+    });
 
     data.street = location.street;
     data.number = location.number;
@@ -140,9 +149,14 @@ export default class PropertyView {
 
     data.position = { lat: location.lat, lon: location.lon };
 
-    const state = await Cache.get(`state/${location.state_id}`, () =>
-      State.findByPk(location.state_id)
-    );
+    let state;
+
+    if (location.state_id) {
+      state = await Cache.get(`state/${location.state_id}`, () => {
+        console.log(`\n\n>>>>> GET state/${location.state_id}`);
+        return State.findByPk(location.state_id);
+      });
+    }
 
     if (state) {
       data.state = {
@@ -152,9 +166,12 @@ export default class PropertyView {
       };
     }
 
-    const city = await Cache.get(`city/${location.city_id}`, () =>
-      City.findByPk(location.city_id)
-    );
+    if (location.city_id) {
+      var city = await Cache.get(`city/${location.city_id}`, () => {
+        console.log(`\n\n>>>>> GET city/${location.city_id}`);
+        return City.findByPk(location.city_id);
+      });
+    }
 
     if (city) {
       data.city = {
@@ -163,9 +180,12 @@ export default class PropertyView {
       };
     }
 
-    const district = await Cache.get(`district/${location.district_id}`, () =>
-      District.findByPk(location.district_id)
-    );
+    if (location.district_id) {
+      var district = await Cache.get(`district/${location.district_id}`, () => {
+        console.log(`\n\n >>>>> GET district/${location.district_id}`);
+        return District.findByPk(location.district_id);
+      });
+    }
 
     if (district) {
       data.district = {
@@ -237,12 +257,12 @@ export default class PropertyView {
 
   static async fill_type($property, property) {
     //
-    const {
-      property_type_id,
-      name,
-      category,
-    } = await Cache.get(`type/${property.type_id}`, () =>
-      PropertyType.findByPk(property.type_id)
+    const { property_type_id, name, category } = await Cache.get(
+      `type/${property.type_id}`,
+      () => {
+        console.log(`\n\n >>>>> GET type/${property.type_id}`);
+        return PropertyType.findByPk(property.type_id);
+      }
     );
 
     $property.type = {
@@ -254,9 +274,10 @@ export default class PropertyView {
 
   static async fill_agent($property, property) {
     //
-    const agent = await Cache.get(`agent/${property.agent_id}`, () =>
-      Agent.findByPk(property.agent_id)
-    );
+    const agent = await Cache.get(`agent/${property.agent_id}`, () => {
+      console.log(`\n\n >>>>> GET agent/${property.agent_id}`);
+      return Agent.findByPk(property.agent_id);
+    });
 
     $property.agent = {
       id: property.agent_id,
@@ -266,12 +287,12 @@ export default class PropertyView {
 
   static async fill_realestate($property, property) {
     //
-    const {
-      realestate_id,
-      name,
-      nickname,
-    } = await Cache.get(`realestate/${property.realestate_id}`, () =>
-      Realestate.findByPk(property.realestate_id)
+    const { realestate_id, name, nickname } = await Cache.get(
+      `realestate/${property.realestate_id}`,
+      () => {
+        console.log(`\n\n\ >>>>> GET realestate/${property.realestate_id}`);
+        return Realestate.findByPk(property.realestate_id);
+      }
     );
 
     $property.realestate = { id: realestate_id, name, nickname };
@@ -280,6 +301,7 @@ export default class PropertyView {
   static async picture_server(realestate_id) {
     //
     servers = await Cache.get(`realestate/${realestate_id}/servers`, () => {
+      console.log(`\n\n\ >>>>> GET realestate/${realestate_id}/servers`);
       return get_realestate_servers_service_domain.by_id(realestate_id);
     });
 
@@ -314,6 +336,7 @@ export default class PropertyView {
   }
 
   static async fill_tags($property, property) {
+    console.log(`\n\n >>>>> GET property/${property.property_id}/taglist`);
     $property.tags = await PropertyAttrService.tagList(property);
   }
 }

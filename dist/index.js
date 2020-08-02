@@ -1,16 +1,16 @@
 (function (global, factory) {
   if (typeof define === "function" && define.amd) {
-    define(["exports", "./database", "./models", "./services", "./views"], factory);
+    define(["exports", "./database", "./models", "./services", "./views", "./utils/Cache"], factory);
   } else if (typeof exports !== "undefined") {
-    factory(exports, require("./database"), require("./models"), require("./services"), require("./views"));
+    factory(exports, require("./database"), require("./models"), require("./services"), require("./views"), require("./utils/Cache"));
   } else {
     var mod = {
       exports: {}
     };
-    factory(mod.exports, global.database, global.models, global.services, global.views);
+    factory(mod.exports, global.database, global.models, global.services, global.views, global.Cache);
     global.index = mod.exports;
   }
-})(typeof globalThis !== "undefined" ? globalThis : typeof self !== "undefined" ? self : this, function (_exports, _database, Models, Services, Views) {
+})(typeof globalThis !== "undefined" ? globalThis : typeof self !== "undefined" ? self : this, function (_exports, _database, Models, Services, Views, _Cache) {
   "use strict";
 
   Object.defineProperty(_exports, "__esModule", {
@@ -22,6 +22,12 @@
       return _database.default;
     }
   });
+  Object.defineProperty(_exports, "Cache", {
+    enumerable: true,
+    get: function () {
+      return _Cache.default;
+    }
+  });
   _exports.Views = _exports.Services = _exports.Models = void 0;
   _database = _interopRequireDefault(_database);
   Models = _interopRequireWildcard(Models);
@@ -30,6 +36,7 @@
   _exports.Services = Services;
   Views = _interopRequireWildcard(Views);
   _exports.Views = Views;
+  _Cache = _interopRequireDefault(_Cache);
 
   function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 

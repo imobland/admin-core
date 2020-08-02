@@ -29,13 +29,13 @@
       //
       this.prototype.connection = sequelize;
       const fields = {
-        search_item_id: {
+        primary: {
           type: _sequelize.default.NUMBER,
           primaryKey: true
         },
         realestate_id: _sequelize.default.NUMBER,
         type: _sequelize.default.STRING,
-        primary: _sequelize.default.NUMBER,
+        // primary: Sequelize.NUMBER,
         title: _sequelize.default.STRING,
         content: _sequelize.default.STRING,
         tags: _sequelize.default.STRING,
