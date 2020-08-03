@@ -26,7 +26,7 @@ const PropertyAttrService = {
     let [results] = await Cache.get(
       `property/${property.property_id}/attrs`,
       () => {
-        console.log(`property/${property.property_id}/attrs`);
+        // console.log(`\n\n >>>>> GET property/${property.property_id}/attrs`);
         return property.connection.query(sql, {
           replacements: property,
         });
@@ -138,7 +138,7 @@ export default class PropertyView {
     const data = {};
 
     const location = await Cache.get(`location/${property.property_id}`, () => {
-      console.log(`\n\n>>>>> GET location/${property.property_id}`);
+      // console.log(`\n\n >>>>> GET location/${property.property_id}`);
       return PropertyLocation.findByPk(property.property_id);
     });
 
@@ -152,10 +152,14 @@ export default class PropertyView {
     let state;
 
     if (location.state_id) {
-      state = await Cache.get(`state/${location.state_id}`, () => {
-        console.log(`\n\n>>>>> GET state/${location.state_id}`);
-        return State.findByPk(location.state_id);
-      });
+      state = await Cache.get(
+        `state/${location.state_id}`,
+        (key) => {
+          // console.log(`\n\n >>>>> GET ${key}`);
+          return State.findByPk(location.state_id);
+        },
+        (x) => console.log("@@@ state")
+      );
     }
 
     if (state) {
@@ -168,7 +172,7 @@ export default class PropertyView {
 
     if (location.city_id) {
       var city = await Cache.get(`city/${location.city_id}`, () => {
-        console.log(`\n\n>>>>> GET city/${location.city_id}`);
+        // console.log(`\n\n >>>>> GET city/${location.city_id}`);
         return City.findByPk(location.city_id);
       });
     }
@@ -182,7 +186,7 @@ export default class PropertyView {
 
     if (location.district_id) {
       var district = await Cache.get(`district/${location.district_id}`, () => {
-        console.log(`\n\n >>>>> GET district/${location.district_id}`);
+        // console.log(`\n\n >>>>> GET district/${location.district_id}`);
         return District.findByPk(location.district_id);
       });
     }
@@ -223,7 +227,7 @@ export default class PropertyView {
 
   static fill_title($property, property) {
     //
-    if (property.title.length > 0) {
+    if (property.title && property.title.length > 0) {
       $property.title = property.title;
       return;
     }
@@ -260,7 +264,7 @@ export default class PropertyView {
     const { property_type_id, name, category } = await Cache.get(
       `type/${property.type_id}`,
       () => {
-        console.log(`\n\n >>>>> GET type/${property.type_id}`);
+        // console.log(`\n\n >>>>> GET type/${property.type_id}`);
         return PropertyType.findByPk(property.type_id);
       }
     );
@@ -275,7 +279,7 @@ export default class PropertyView {
   static async fill_agent($property, property) {
     //
     const agent = await Cache.get(`agent/${property.agent_id}`, () => {
-      console.log(`\n\n >>>>> GET agent/${property.agent_id}`);
+      // console.log(`\n\n >>>>> GET agent/${property.agent_id}`);
       return Agent.findByPk(property.agent_id);
     });
 
@@ -290,7 +294,7 @@ export default class PropertyView {
     const { realestate_id, name, nickname } = await Cache.get(
       `realestate/${property.realestate_id}`,
       () => {
-        console.log(`\n\n\ >>>>> GET realestate/${property.realestate_id}`);
+        // console.log(`\n\n\ >>>>> GET realestate/${property.realestate_id}`);
         return Realestate.findByPk(property.realestate_id);
       }
     );
@@ -301,7 +305,7 @@ export default class PropertyView {
   static async picture_server(realestate_id) {
     //
     servers = await Cache.get(`realestate/${realestate_id}/servers`, () => {
-      console.log(`\n\n\ >>>>> GET realestate/${realestate_id}/servers`);
+      // console.log(`\n\n\ >>>>> GET realestate/${realestate_id}/servers`);
       return get_realestate_servers_service_domain.by_id(realestate_id);
     });
 
@@ -336,7 +340,7 @@ export default class PropertyView {
   }
 
   static async fill_tags($property, property) {
-    console.log(`\n\n >>>>> GET property/${property.property_id}/taglist`);
+    console.log(`\n\n ::: GET property/${property.property_id}/taglist`);
     $property.tags = await PropertyAttrService.tagList(property);
   }
 }

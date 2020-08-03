@@ -17,10 +17,11 @@ class Cache {
     if (!storeFunction) {
       return null;
     }
-    return storeFunction().then((result) => {
-      this.cache.set(key, result);
-      return result;
-    });
+    console.log(`\n\n >>>>> FETCH '${key}'`);
+
+    const response = storeFunction();
+    this.cache.set(key, response);
+    return response;
   }
 
   mget(keys) {

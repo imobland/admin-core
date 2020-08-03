@@ -32,7 +32,7 @@
       property_type_attr p 
       ON p.property_type_attr_id=c.property_type_attr_id;`;
       let [results] = await _Cache.default.get(`property/${property.property_id}/attrs`, () => {
-        console.log(`property/${property.property_id}/attrs`);
+        // console.log(`\n\n >>>>> GET property/${property.property_id}/attrs`);
         return property.connection.query(sql, {
           replacements: property
         });
@@ -131,7 +131,7 @@
       //
       const data = {};
       const location = await _Cache.default.get(`location/${property.property_id}`, () => {
-        console.log(`\n\n>>>>> GET location/${property.property_id}`);
+        // console.log(`\n\n >>>>> GET location/${property.property_id}`);
         return _models.PropertyLocation.findByPk(property.property_id);
       });
       data.street = location.street;
@@ -145,10 +145,10 @@
       let state;
 
       if (location.state_id) {
-        state = await _Cache.default.get(`state/${location.state_id}`, () => {
-          console.log(`\n\n>>>>> GET state/${location.state_id}`);
+        state = await _Cache.default.get(`state/${location.state_id}`, key => {
+          // console.log(`\n\n >>>>> GET ${key}`);
           return _models.State.findByPk(location.state_id);
-        });
+        }, x => console.log("@@@ state"));
       }
 
       if (state) {
@@ -161,7 +161,7 @@
 
       if (location.city_id) {
         var city = await _Cache.default.get(`city/${location.city_id}`, () => {
-          console.log(`\n\n>>>>> GET city/${location.city_id}`);
+          // console.log(`\n\n >>>>> GET city/${location.city_id}`);
           return _models.City.findByPk(location.city_id);
         });
       }
@@ -175,7 +175,7 @@
 
       if (location.district_id) {
         var district = await _Cache.default.get(`district/${location.district_id}`, () => {
-          console.log(`\n\n >>>>> GET district/${location.district_id}`);
+          // console.log(`\n\n >>>>> GET district/${location.district_id}`);
           return _models.District.findByPk(location.district_id);
         });
       }
@@ -207,7 +207,7 @@
 
     static fill_title($property, property) {
       //
-      if (property.title.length > 0) {
+      if (property.title && property.title.length > 0) {
         $property.title = property.title;
         return;
       }
@@ -249,7 +249,7 @@
         name,
         category
       } = await _Cache.default.get(`type/${property.type_id}`, () => {
-        console.log(`\n\n >>>>> GET type/${property.type_id}`);
+        // console.log(`\n\n >>>>> GET type/${property.type_id}`);
         return _models.PropertyType.findByPk(property.type_id);
       });
       $property.type = {
@@ -262,7 +262,7 @@
     static async fill_agent($property, property) {
       //
       const agent = await _Cache.default.get(`agent/${property.agent_id}`, () => {
-        console.log(`\n\n >>>>> GET agent/${property.agent_id}`);
+        // console.log(`\n\n >>>>> GET agent/${property.agent_id}`);
         return _models.Agent.findByPk(property.agent_id);
       });
       $property.agent = {
@@ -278,7 +278,7 @@
         name,
         nickname
       } = await _Cache.default.get(`realestate/${property.realestate_id}`, () => {
-        console.log(`\n\n\ >>>>> GET realestate/${property.realestate_id}`);
+        // console.log(`\n\n\ >>>>> GET realestate/${property.realestate_id}`);
         return _models.Realestate.findByPk(property.realestate_id);
       });
       $property.realestate = {
@@ -291,7 +291,7 @@
     static async picture_server(realestate_id) {
       //
       servers = await _Cache.default.get(`realestate/${realestate_id}/servers`, () => {
-        console.log(`\n\n\ >>>>> GET realestate/${realestate_id}/servers`);
+        // console.log(`\n\n\ >>>>> GET realestate/${realestate_id}/servers`);
         return get_realestate_servers_service_domain.by_id(realestate_id);
       });
       return servers.picture;
@@ -327,7 +327,7 @@
     }
 
     static async fill_tags($property, property) {
-      console.log(`\n\n >>>>> GET property/${property.property_id}/taglist`);
+      console.log(`\n\n ::: GET property/${property.property_id}/taglist`);
       $property.tags = await PropertyAttrService.tagList(property);
     }
 
