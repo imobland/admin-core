@@ -31,11 +31,8 @@
       INNER JOIN
       property_type_attr p 
       ON p.property_type_attr_id=c.property_type_attr_id;`;
-      let [results] = await _Cache.default.get(`property/${property.property_id}/attrs`, () => {
-        // console.log(`\n\n >>>>> GET property/${property.property_id}/attrs`);
-        return property.connection.query(sql, {
-          replacements: property
-        });
+      let [results] = await property.connection.query(sql, {
+        replacements: property
       });
       return results;
     },
@@ -130,10 +127,9 @@
     static async fill_location($property, property) {
       //
       const data = {};
-      const location = await _Cache.default.get(`location/${property.property_id}`, () => {
-        // console.log(`\n\n >>>>> GET location/${property.property_id}`);
-        return _models.PropertyLocation.findByPk(property.property_id);
-      });
+
+      const location = _models.PropertyLocation.findByPk(property.property_id);
+
       data.street = location.street;
       data.number = location.number;
       data.postalcode = location.cep;
