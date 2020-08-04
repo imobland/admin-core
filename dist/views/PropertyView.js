@@ -80,16 +80,10 @@
       }
 
       const $property = {};
-      await Promise.all([this.fill_attr($property, property) // this.fill_tags($property, property),
-      // this.fill_type($property, property),
-      // this.fill_realestate($property, property),
-      // this.fill_location($property, property),
-      // this.fill_pictures($property, property),
-      // this.fill_integrations($property, property),
-      ]);
-      return; // this.fill_basic($property, property);
-      // this.fill_title($property, property);
+      await Promise.all([this.fill_attr($property, property), this.fill_tags($property, property), this.fill_type($property, property), this.fill_realestate($property, property), this.fill_location($property, property), this.fill_pictures($property, property), this.fill_integrations($property, property)]); // return;
 
+      this.fill_basic($property, property);
+      this.fill_title($property, property);
       return $property;
     }
 
