@@ -48,6 +48,7 @@
     });
     console.log("Conectado ao DB");
     const models = config.models ? config.models : {};
+    console.log(config);
 
     _Property.default.init(sequelize, models.Property);
 

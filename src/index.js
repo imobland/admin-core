@@ -4,5 +4,6 @@ import DB from "./database";
 import * as Models from "./models";
 import * as Services from "./services";
 import * as Views from "./views";
+import Cache from "./utils/Cache";
 
-export { DB, Models, Services, Views };
+export { DB, Models, Services, Views, Cache };

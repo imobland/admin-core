@@ -29,6 +29,8 @@ const connect = (config = {}) => {
 
   const models = config.models ? config.models : {};
 
+  console.log(config);
+
   Property.init(sequelize, models.Property);
   PropertyType.init(sequelize, models.PropertyType);
   Realestate.init(sequelize, models.Realestate);
