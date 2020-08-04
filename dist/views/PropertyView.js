@@ -127,9 +127,7 @@
     static async fill_location($property, property) {
       //
       const data = {};
-
-      const location = _models.PropertyLocation.findByPk(property.property_id);
-
+      const location = await _models.PropertyLocation.findByPk(property.property_id);
       data.street = location.street;
       data.number = location.number;
       data.postalcode = location.cep;

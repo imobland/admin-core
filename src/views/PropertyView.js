@@ -131,7 +131,7 @@ export default class PropertyView {
     //
     const data = {};
 
-    const location = PropertyLocation.findByPk(property.property_id);
+    const location = await PropertyLocation.findByPk(property.property_id);
 
     data.street = location.street;
     data.number = location.number;
