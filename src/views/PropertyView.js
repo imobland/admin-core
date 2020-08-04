@@ -17,6 +17,13 @@ const PropertyAttrService = {
   //
   async getAttrs(property) {
     //
+
+    let [options] = await Cache.get("attr-options", (x) =>
+      property.connection.query(
+        "SELECT property_type_attr_id, label, `key`, value, tags FROM property_type_attr_option;"
+      )
+    );
+
     const sql = `SELECT p.*, c.value 
       FROM (SELECT * FROM property_attr pa WHERE pa.property_id = :property_id) c 
       INNER JOIN
@@ -26,6 +33,21 @@ const PropertyAttrService = {
     let [results] = await property.connection.query(sql, {
       replacements: property,
     });
+
+    for (const i in results) {
+      const attr = results[i];
+      if (attr.type != "select") {
+        continue;
+      }
+      const [option] = options.filter(
+        (x) =>
+          x.property_type_attr_id == attr.property_type_attr_id &&
+          x.value == attr.value
+      );
+      if (option) {
+        attr.value_string = option.label;
+      }
+    }
 
     return results;
   },
@@ -60,17 +82,16 @@ export default class PropertyView {
 
     await Promise.all([
       this.fill_attr($property, property),
-      this.fill_tags($property, property),
-      this.fill_type($property, property),
-      this.fill_realestate($property, property),
-      // this.fill_agent($property, property),
-      this.fill_location($property, property),
-      this.fill_pictures($property, property),
-      this.fill_integrations($property, property),
+      // this.fill_tags($property, property),
+      // this.fill_type($property, property),
+      // this.fill_realestate($property, property),
+      // this.fill_location($property, property),
+      // this.fill_pictures($property, property),
+      // this.fill_integrations($property, property),
     ]);
-
-    this.fill_basic($property, property);
-    this.fill_title($property, property);
+    return;
+    // this.fill_basic($property, property);
+    // this.fill_title($property, property);
 
     return $property;
   }
@@ -214,6 +235,8 @@ export default class PropertyView {
         "group",
       ]),
     }));
+
+    // console.log("ATTRS", $property.attributes);
   }
 
   static fill_title($property, property) {

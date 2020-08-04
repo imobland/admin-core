@@ -35,7 +35,7 @@ describe("Describe", () => {
 
     // console.log(JSON.stringify(_property, null, 2));
 
-    // const $property = await PropertyView.build(property);
+    const $property = await PropertyView.build(property);
 
     expect(200).toBe(200);
   }, 30000);
