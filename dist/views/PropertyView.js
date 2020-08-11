@@ -90,13 +90,14 @@
 
     static async fill_private($property, property) {
       //
+      const pid = parseInt(property.property_id);
       const sql = `SELECT c.value name FROM client_field c 
         INNER JOIN property p 
         ON p.client_id = c.client_id
-        WHERE c.client_field_type_id = 1 AND p.property_id = 58193
+        WHERE c.client_field_type_id = 1 AND p.property_id = ${pid}
       UNION SELECT a.name FROM agent a 
         INNER JOIN property p ON p.agent_id = a.agent_id
-        WHERE p.property_id = 58193;
+        WHERE p.property_id = ${pid};
     `;
       let [result] = await property.connection.query(sql, {
         replacements: property
