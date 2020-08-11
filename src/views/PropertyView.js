@@ -12,12 +12,12 @@ import {
 
 import Cache from "../utils/Cache";
 import _ from "lodash";
+import CryptoJS from "crypto-js";
 
 const PropertyAttrService = {
   //
   async getAttrs(property) {
     //
-
     let [options] = await Cache.get("attr-options", (x) =>
       property.connection.query(
         "SELECT property_type_attr_id, label, `key`, value, tags FROM property_type_attr_option;"
@@ -88,12 +88,38 @@ export default class PropertyView {
       this.fill_location($property, property),
       this.fill_pictures($property, property),
       this.fill_integrations($property, property),
+      this.fill_private($property, property),
     ]);
     // return;
     this.fill_basic($property, property);
     this.fill_title($property, property);
 
     return $property;
+  }
+
+  static async fill_private($property, property) {
+    //
+    const sql = `SELECT c.value name FROM client_field c 
+        INNER JOIN property p 
+        ON p.client_id = c.client_id
+        WHERE c.client_field_type_id = 1 AND p.property_id = 58193
+      UNION SELECT a.name FROM agent a 
+        INNER JOIN property p ON p.agent_id = a.agent_id
+        WHERE p.property_id = 58193;
+    `;
+
+    let [result] = await property.connection.query(sql, {
+      replacements: property,
+    });
+
+    const keys = [];
+    for (const i in result) {
+      keys.push(result[i].name);
+    }
+
+    var wordArray = CryptoJS.enc.Utf8.parse(JSON.stringify(keys));
+
+    $property.private_keys = CryptoJS.enc.Base64.stringify(wordArray);
   }
 
   static async fill_integrations($property, property) {

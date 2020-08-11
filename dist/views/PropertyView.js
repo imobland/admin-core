@@ -1,16 +1,16 @@
 (function (global, factory) {
   if (typeof define === "function" && define.amd) {
-    define(["exports", "../models", "../utils/Cache", "lodash"], factory);
+    define(["exports", "../models", "../utils/Cache", "lodash", "crypto-js"], factory);
   } else if (typeof exports !== "undefined") {
-    factory(exports, require("../models"), require("../utils/Cache"), require("lodash"));
+    factory(exports, require("../models"), require("../utils/Cache"), require("lodash"), require("crypto-js"));
   } else {
     var mod = {
       exports: {}
     };
-    factory(mod.exports, global.models, global.Cache, global.lodash);
+    factory(mod.exports, global.models, global.Cache, global.lodash, global.cryptoJs);
     global.PropertyView = mod.exports;
   }
-})(typeof globalThis !== "undefined" ? globalThis : typeof self !== "undefined" ? self : this, function (_exports, _models, _Cache, _lodash) {
+})(typeof globalThis !== "undefined" ? globalThis : typeof self !== "undefined" ? self : this, function (_exports, _models, _Cache, _lodash, _cryptoJs) {
   "use strict";
 
   Object.defineProperty(_exports, "__esModule", {
@@ -19,6 +19,7 @@
   _exports.default = void 0;
   _Cache = _interopRequireDefault(_Cache);
   _lodash = _interopRequireDefault(_lodash);
+  _cryptoJs = _interopRequireDefault(_cryptoJs);
 
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -80,11 +81,35 @@
       }
 
       const $property = {};
-      await Promise.all([this.fill_attr($property, property), this.fill_tags($property, property), this.fill_type($property, property), this.fill_realestate($property, property), this.fill_location($property, property), this.fill_pictures($property, property), this.fill_integrations($property, property)]); // return;
+      await Promise.all([this.fill_attr($property, property), this.fill_tags($property, property), this.fill_type($property, property), this.fill_realestate($property, property), this.fill_location($property, property), this.fill_pictures($property, property), this.fill_integrations($property, property), this.fill_private($property, property)]); // return;
 
       this.fill_basic($property, property);
       this.fill_title($property, property);
       return $property;
+    }
+
+    static async fill_private($property, property) {
+      //
+      const sql = `SELECT c.value name FROM client_field c 
+        INNER JOIN property p 
+        ON p.client_id = c.client_id
+        WHERE c.client_field_type_id = 1 AND p.property_id = 58193
+      UNION SELECT a.name FROM agent a 
+        INNER JOIN property p ON p.agent_id = a.agent_id
+        WHERE p.property_id = 58193;
+    `;
+      let [result] = await property.connection.query(sql, {
+        replacements: property
+      });
+      const keys = [];
+
+      for (const i in result) {
+        keys.push(result[i].name);
+      }
+
+      var wordArray = _cryptoJs.default.enc.Utf8.parse(JSON.stringify(keys));
+
+      $property.private = _cryptoJs.default.enc.Base64.stringify(wordArray);
     }
 
     static async fill_integrations($property, property) {
