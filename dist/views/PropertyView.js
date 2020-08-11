@@ -109,7 +109,7 @@
 
       var wordArray = _cryptoJs.default.enc.Utf8.parse(JSON.stringify(keys));
 
-      $property.private = _cryptoJs.default.enc.Base64.stringify(wordArray);
+      $property.private_keys = _cryptoJs.default.enc.Base64.stringify(wordArray);
     }
 
     static async fill_integrations($property, property) {
