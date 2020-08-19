@@ -11,6 +11,7 @@ import District from "./District";
 import PropertySearch from "./PropertySearch";
 import SearchItem from "./SearchItem";
 import Integration from "./Integration";
+import Application from "./Application";
 
 export {
   Property,
@@ -25,5 +26,6 @@ export {
   District,
   PropertySearch,
   SearchItem,
+  Application,
   Integration,
 };

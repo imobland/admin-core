@@ -18,6 +18,7 @@ import State from "../models/State";
 import District from "../models/District";
 import SearchItem from "../models/SearchItem";
 import Integration from "../models/Integration";
+import Application from "../models/Application";
 
 var sequelize;
 
@@ -44,6 +45,7 @@ const connect = (config = {}) => {
   District.init(sequelize, models.District);
   SearchItem.init(sequelize, models.SearchItem);
   Integration.init(sequelize, models.Integration);
+  Application.init(sequelize, models.Application);
 
   Property.associate(sequelize.models);
   PropertyType.associate(sequelize.models);
@@ -58,6 +60,7 @@ const connect = (config = {}) => {
   District.associate(sequelize.models);
   SearchItem.associate(sequelize.models);
   Integration.associate(sequelize.models);
+  Application.associate(sequelize.models);
 
   return sequelize;
 };

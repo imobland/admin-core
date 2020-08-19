@@ -2,7 +2,7 @@ require("dotenv/config");
 const { DB, Models, Services, Views } = require("../dist");
 
 const { PropertyView, PropertySearch: PSearch } = Views;
-const { Property, PropertySearch } = Models;
+const { Property, PropertySearch, Application } = Models;
 
 (async () => {
   //
@@ -21,11 +21,14 @@ const { Property, PropertySearch } = Models;
   // console.log(res);
 
   // return;
-  const property = await Property.findByPk(property_id);
+  const app = await Application.findByPk(1);
+  console.log(JSON.stringify(app, null, 2));
 
-  const $property = await PropertyView.build(property);
+  // const property = await Property.findByPk(property_id);
 
-  console.log(JSON.stringify($property, null, 2));
+  // const $property = await PropertyView.build(property);
+
+  // console.log(JSON.stringify($property, null, 2));
   //
   conn.close();
 })();

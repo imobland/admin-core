@@ -1,16 +1,16 @@
 (function (global, factory) {
   if (typeof define === "function" && define.amd) {
-    define(["exports", "./Property", "./PropertyType", "./Realestate", "./Picture", "./Agent", "./Client", "./PropertyLocation", "./City", "./State", "./District", "./PropertySearch", "./SearchItem", "./Integration"], factory);
+    define(["exports", "./Property", "./PropertyType", "./Realestate", "./Picture", "./Agent", "./Client", "./PropertyLocation", "./City", "./State", "./District", "./PropertySearch", "./SearchItem", "./Integration", "./Application"], factory);
   } else if (typeof exports !== "undefined") {
-    factory(exports, require("./Property"), require("./PropertyType"), require("./Realestate"), require("./Picture"), require("./Agent"), require("./Client"), require("./PropertyLocation"), require("./City"), require("./State"), require("./District"), require("./PropertySearch"), require("./SearchItem"), require("./Integration"));
+    factory(exports, require("./Property"), require("./PropertyType"), require("./Realestate"), require("./Picture"), require("./Agent"), require("./Client"), require("./PropertyLocation"), require("./City"), require("./State"), require("./District"), require("./PropertySearch"), require("./SearchItem"), require("./Integration"), require("./Application"));
   } else {
     var mod = {
       exports: {}
     };
-    factory(mod.exports, global.Property, global.PropertyType, global.Realestate, global.Picture, global.Agent, global.Client, global.PropertyLocation, global.City, global.State, global.District, global.PropertySearch, global.SearchItem, global.Integration);
+    factory(mod.exports, global.Property, global.PropertyType, global.Realestate, global.Picture, global.Agent, global.Client, global.PropertyLocation, global.City, global.State, global.District, global.PropertySearch, global.SearchItem, global.Integration, global.Application);
     global.index = mod.exports;
   }
-})(typeof globalThis !== "undefined" ? globalThis : typeof self !== "undefined" ? self : this, function (_exports, _Property, _PropertyType, _Realestate, _Picture, _Agent, _Client, _PropertyLocation, _City, _State, _District, _PropertySearch, _SearchItem, _Integration) {
+})(typeof globalThis !== "undefined" ? globalThis : typeof self !== "undefined" ? self : this, function (_exports, _Property, _PropertyType, _Realestate, _Picture, _Agent, _Client, _PropertyLocation, _City, _State, _District, _PropertySearch, _SearchItem, _Integration, _Application) {
   "use strict";
 
   Object.defineProperty(_exports, "__esModule", {
@@ -94,6 +94,12 @@
       return _Integration.default;
     }
   });
+  Object.defineProperty(_exports, "Application", {
+    enumerable: true,
+    get: function () {
+      return _Application.default;
+    }
+  });
   _Property = _interopRequireDefault(_Property);
   _PropertyType = _interopRequireDefault(_PropertyType);
   _Realestate = _interopRequireDefault(_Realestate);
@@ -107,6 +113,7 @@
   _PropertySearch = _interopRequireDefault(_PropertySearch);
   _SearchItem = _interopRequireDefault(_SearchItem);
   _Integration = _interopRequireDefault(_Integration);
+  _Application = _interopRequireDefault(_Application);
 
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 });

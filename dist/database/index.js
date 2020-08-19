@@ -1,16 +1,16 @@
 (function (global, factory) {
   if (typeof define === "function" && define.amd) {
-    define(["exports", "sequelize", "../config/database", "../models/Property", "../models/PropertyType", "../models/Realestate", "../models/Picture", "../models/Client", "../models/Agent", "../models/PropertyLocation", "../models/PropertySearch", "../models/City", "../models/State", "../models/District", "../models/SearchItem", "../models/Integration"], factory);
+    define(["exports", "sequelize", "../config/database", "../models/Property", "../models/PropertyType", "../models/Realestate", "../models/Picture", "../models/Client", "../models/Agent", "../models/PropertyLocation", "../models/PropertySearch", "../models/City", "../models/State", "../models/District", "../models/SearchItem", "../models/Integration", "../models/Application"], factory);
   } else if (typeof exports !== "undefined") {
-    factory(exports, require("sequelize"), require("../config/database"), require("../models/Property"), require("../models/PropertyType"), require("../models/Realestate"), require("../models/Picture"), require("../models/Client"), require("../models/Agent"), require("../models/PropertyLocation"), require("../models/PropertySearch"), require("../models/City"), require("../models/State"), require("../models/District"), require("../models/SearchItem"), require("../models/Integration"));
+    factory(exports, require("sequelize"), require("../config/database"), require("../models/Property"), require("../models/PropertyType"), require("../models/Realestate"), require("../models/Picture"), require("../models/Client"), require("../models/Agent"), require("../models/PropertyLocation"), require("../models/PropertySearch"), require("../models/City"), require("../models/State"), require("../models/District"), require("../models/SearchItem"), require("../models/Integration"), require("../models/Application"));
   } else {
     var mod = {
       exports: {}
     };
-    factory(mod.exports, global.sequelize, global.database, global.Property, global.PropertyType, global.Realestate, global.Picture, global.Client, global.Agent, global.PropertyLocation, global.PropertySearch, global.City, global.State, global.District, global.SearchItem, global.Integration);
+    factory(mod.exports, global.sequelize, global.database, global.Property, global.PropertyType, global.Realestate, global.Picture, global.Client, global.Agent, global.PropertyLocation, global.PropertySearch, global.City, global.State, global.District, global.SearchItem, global.Integration, global.Application);
     global.index = mod.exports;
   }
-})(typeof globalThis !== "undefined" ? globalThis : typeof self !== "undefined" ? self : this, function (_exports, _sequelize, _database, _Property, _PropertyType, _Realestate, _Picture, _Client, _Agent, _PropertyLocation, _PropertySearch, _City, _State, _District, _SearchItem, _Integration) {
+})(typeof globalThis !== "undefined" ? globalThis : typeof self !== "undefined" ? self : this, function (_exports, _sequelize, _database, _Property, _PropertyType, _Realestate, _Picture, _Client, _Agent, _PropertyLocation, _PropertySearch, _City, _State, _District, _SearchItem, _Integration, _Application) {
   "use strict";
 
   Object.defineProperty(_exports, "__esModule", {
@@ -32,6 +32,7 @@
   _District = _interopRequireDefault(_District);
   _SearchItem = _interopRequireDefault(_SearchItem);
   _Integration = _interopRequireDefault(_Integration);
+  _Application = _interopRequireDefault(_Application);
 
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -76,6 +77,8 @@
 
     _Integration.default.init(sequelize, models.Integration);
 
+    _Application.default.init(sequelize, models.Application);
+
     _Property.default.associate(sequelize.models);
 
     _PropertyType.default.associate(sequelize.models);
@@ -101,6 +104,8 @@
     _SearchItem.default.associate(sequelize.models);
 
     _Integration.default.associate(sequelize.models);
+
+    _Application.default.associate(sequelize.models);
 
     return sequelize;
   };
