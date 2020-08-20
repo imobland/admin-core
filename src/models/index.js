@@ -1,3 +1,4 @@
+import User from "./User";
 import Property from "./Property";
 import PropertyType from "./PropertyType";
 import Realestate from "./Realestate";
@@ -14,6 +15,7 @@ import Integration from "./Integration";
 import Application from "./Application";
 
 export {
+  User,
   Property,
   PropertyType,
   Realestate,

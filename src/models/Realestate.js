@@ -10,6 +10,7 @@ class Realestate extends Model {
       realestate_id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
+        autoIncrement: true
       },
       name: Sequelize.STRING,
       nickname: Sequelize.STRING,

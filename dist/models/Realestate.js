@@ -31,7 +31,8 @@
       const fields = {
         realestate_id: {
           type: _sequelize.default.INTEGER,
-          primaryKey: true
+          primaryKey: true,
+          autoIncrement: true
         },
         name: _sequelize.default.STRING,
         nickname: _sequelize.default.STRING,

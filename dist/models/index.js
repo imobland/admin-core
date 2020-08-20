@@ -1,20 +1,26 @@
 (function (global, factory) {
   if (typeof define === "function" && define.amd) {
-    define(["exports", "./Property", "./PropertyType", "./Realestate", "./Picture", "./Agent", "./Client", "./PropertyLocation", "./City", "./State", "./District", "./PropertySearch", "./SearchItem", "./Integration", "./Application"], factory);
+    define(["exports", "./User", "./Property", "./PropertyType", "./Realestate", "./Picture", "./Agent", "./Client", "./PropertyLocation", "./City", "./State", "./District", "./PropertySearch", "./SearchItem", "./Integration", "./Application"], factory);
   } else if (typeof exports !== "undefined") {
-    factory(exports, require("./Property"), require("./PropertyType"), require("./Realestate"), require("./Picture"), require("./Agent"), require("./Client"), require("./PropertyLocation"), require("./City"), require("./State"), require("./District"), require("./PropertySearch"), require("./SearchItem"), require("./Integration"), require("./Application"));
+    factory(exports, require("./User"), require("./Property"), require("./PropertyType"), require("./Realestate"), require("./Picture"), require("./Agent"), require("./Client"), require("./PropertyLocation"), require("./City"), require("./State"), require("./District"), require("./PropertySearch"), require("./SearchItem"), require("./Integration"), require("./Application"));
   } else {
     var mod = {
       exports: {}
     };
-    factory(mod.exports, global.Property, global.PropertyType, global.Realestate, global.Picture, global.Agent, global.Client, global.PropertyLocation, global.City, global.State, global.District, global.PropertySearch, global.SearchItem, global.Integration, global.Application);
+    factory(mod.exports, global.User, global.Property, global.PropertyType, global.Realestate, global.Picture, global.Agent, global.Client, global.PropertyLocation, global.City, global.State, global.District, global.PropertySearch, global.SearchItem, global.Integration, global.Application);
     global.index = mod.exports;
   }
-})(typeof globalThis !== "undefined" ? globalThis : typeof self !== "undefined" ? self : this, function (_exports, _Property, _PropertyType, _Realestate, _Picture, _Agent, _Client, _PropertyLocation, _City, _State, _District, _PropertySearch, _SearchItem, _Integration, _Application) {
+})(typeof globalThis !== "undefined" ? globalThis : typeof self !== "undefined" ? self : this, function (_exports, _User, _Property, _PropertyType, _Realestate, _Picture, _Agent, _Client, _PropertyLocation, _City, _State, _District, _PropertySearch, _SearchItem, _Integration, _Application) {
   "use strict";
 
   Object.defineProperty(_exports, "__esModule", {
     value: true
+  });
+  Object.defineProperty(_exports, "User", {
+    enumerable: true,
+    get: function () {
+      return _User.default;
+    }
   });
   Object.defineProperty(_exports, "Property", {
     enumerable: true,
@@ -100,6 +106,7 @@
       return _Application.default;
     }
   });
+  _User = _interopRequireDefault(_User);
   _Property = _interopRequireDefault(_Property);
   _PropertyType = _interopRequireDefault(_PropertyType);
   _Realestate = _interopRequireDefault(_Realestate);
