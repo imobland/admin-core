@@ -1,5 +1,5 @@
 import Sequelize, { Model } from "sequelize";
-
+import btoa from "btoa";
 class Picture extends Model {
   //
   static init(sequelize, config = {}) {
@@ -47,8 +47,14 @@ class Picture extends Model {
     // });
   }
 
-  static getFullPath(pic) {
+  static getFullPath(pic, { type, domain, bucket }) {
     //
+    if (type == "aws") {
+      return domain + "/" + btoa(JSON.stringify({ bucket, key: pic.path }));
+    }
+
+    // -------------------------------------------------------------------------
+
     if (pic.version == "1") {
       var re = /([a-zA-Z0-9]+).jpg/i;
       var m = pic.path.match(re);

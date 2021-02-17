@@ -25,6 +25,7 @@
     "pg": "^8.3.0"
   },
   "dependencies": {
+    "btoa": "^1.2.1",
     "crypto-js": "^4.0.0",
     "lodash": "^4.17.19",
     "mysql2": "^2.1.0",

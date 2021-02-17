@@ -365,6 +365,17 @@ export default class PropertyView {
     $property.display_url = "";
     $property.picture_path = "";
 
+    const $realestate = await Cache.get(
+      `realestate/${property.realestate_id}`,
+      () => Realestate.findByPk(property.realestate_id)
+    );
+
+    const pictureConfig = {
+      type: $realestate.picture_service,
+      domain: process.env.PICTURE_DOMAIN,
+      bucket: process.env.PICTURE_BUCKET,
+    };
+
     const index = _.findIndex(pics, { display: 1 });
 
     if (index >= 0) {
@@ -376,7 +387,7 @@ export default class PropertyView {
     $property.pictures = pics.map((pic) => {
       return {
         ..._.pick(pic, ["picture_id", "display", "src", "path"]),
-        fullpath: Picture.getFullPath(pic),
+        fullpath: Picture.getFullPath(pic, pictureConfig),
       };
     });
   }

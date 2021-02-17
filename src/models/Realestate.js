@@ -33,6 +33,10 @@ class Realestate extends Model {
       preferences: Sequelize.STRING,
       use_friendly_url: Sequelize.STRING,
       config: Sequelize.STRING,
+      
+      active: Sequelize.NUMBER,
+      locked: Sequelize.NUMBER,
+      picture_service: Sequelize.NUMBER,
     };
 
     super.init(fields, {

@@ -54,7 +54,10 @@
         longitude: _sequelize.default.STRING,
         preferences: _sequelize.default.STRING,
         use_friendly_url: _sequelize.default.STRING,
-        config: _sequelize.default.STRING
+        config: _sequelize.default.STRING,
+        active: _sequelize.default.NUMBER,
+        locked: _sequelize.default.NUMBER,
+        picture_service: _sequelize.default.NUMBER
       };
       super.init(fields, {
         tableName: "realestate",

@@ -1,16 +1,16 @@
 (function (global, factory) {
   if (typeof define === "function" && define.amd) {
-    define(["exports", "sequelize"], factory);
+    define(["exports", "sequelize", "btoa"], factory);
   } else if (typeof exports !== "undefined") {
-    factory(exports, require("sequelize"));
+    factory(exports, require("sequelize"), require("btoa"));
   } else {
     var mod = {
       exports: {}
     };
-    factory(mod.exports, global.sequelize);
+    factory(mod.exports, global.sequelize, global.btoa);
     global.Picture = mod.exports;
   }
-})(typeof globalThis !== "undefined" ? globalThis : typeof self !== "undefined" ? self : this, function (_exports, _sequelize) {
+})(typeof globalThis !== "undefined" ? globalThis : typeof self !== "undefined" ? self : this, function (_exports, _sequelize, _btoa) {
   "use strict";
 
   Object.defineProperty(_exports, "__esModule", {
@@ -18,6 +18,9 @@
   });
   _exports.default = void 0;
   _sequelize = _interopRequireWildcard(_sequelize);
+  _btoa = _interopRequireDefault(_btoa);
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
   function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
@@ -66,8 +69,20 @@
       // });
     }
 
-    static getFullPath(pic) {
+    static getFullPath(pic, {
+      type,
+      domain,
+      bucket
+    }) {
       //
+      if (type == "aws") {
+        return domain + "/" + (0, _btoa.default)(JSON.stringify({
+          bucket,
+          key: pic.path
+        }));
+      } // -------------------------------------------------------------------------
+
+
       if (pic.version == "1") {
         var re = /([a-zA-Z0-9]+).jpg/i;
         var m = pic.path.match(re);

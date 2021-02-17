@@ -344,6 +344,12 @@
       $property.display_thumb = "";
       $property.display_url = "";
       $property.picture_path = "";
+      const $realestate = await _Cache.default.get(`realestate/${property.realestate_id}`, () => _models.Realestate.findByPk(property.realestate_id));
+      const pictureConfig = {
+        type: $realestate.picture_service,
+        domain: process.env.PICTURE_DOMAIN,
+        bucket: process.env.PICTURE_BUCKET
+      };
 
       const index = _lodash.default.findIndex(pics, {
         display: 1
@@ -357,7 +363,7 @@
 
       $property.pictures = pics.map(pic => {
         return { ..._lodash.default.pick(pic, ["picture_id", "display", "src", "path"]),
-          fullpath: _models.Picture.getFullPath(pic)
+          fullpath: _models.Picture.getFullPath(pic, pictureConfig)
         };
       });
     }
