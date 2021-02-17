@@ -81,6 +81,10 @@
       }
 
       const $property = {};
+      const $realestate = await _models.Realestate.findByPk(property.realestate_id);
+
+      _Cache.default.set(`realestate/${property.realestate_id}`, $realestate);
+
       await Promise.all([this.fill_attr($property, property), this.fill_tags($property, property), this.fill_type($property, property), this.fill_realestate($property, property), this.fill_location($property, property), this.fill_pictures($property, property), this.fill_integrations($property, property), this.fill_private($property, property)]); // return;
 
       this.fill_basic($property, property);
@@ -313,10 +317,7 @@
         realestate_id,
         name,
         nickname
-      } = await _Cache.default.get(`realestate/${property.realestate_id}`, () => {
-        // console.log(`\n\n\ >>>>> GET realestate/${property.realestate_id}`);
-        return _models.Realestate.findByPk(property.realestate_id);
-      });
+      } = await _Cache.default.get(`realestate/${property.realestate_id}`);
       $property.realestate = {
         id: realestate_id,
         name,
@@ -344,7 +345,7 @@
       $property.display_thumb = "";
       $property.display_url = "";
       $property.picture_path = "";
-      const $realestate = await _Cache.default.get(`realestate/${property.realestate_id}`, () => _models.Realestate.findByPk(property.realestate_id));
+      const $realestate = await _Cache.default.get(`realestate/${property.realestate_id}`);
       const pictureConfig = {
         type: $realestate.picture_service,
         domain: process.env.PICTURE_DOMAIN,

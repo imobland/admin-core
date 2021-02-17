@@ -49,8 +49,8 @@
       this.cache.del(keys);
     }
 
-    set(keys) {
-      return this.cache.set(keys);
+    set(key, value) {
+      return this.cache.set(key, value);
     }
 
     has(keys) {

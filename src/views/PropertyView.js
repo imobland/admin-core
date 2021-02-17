@@ -80,6 +80,10 @@ export default class PropertyView {
 
     const $property = {};
 
+    const $realestate = await Realestate.findByPk(property.realestate_id);
+    
+    Cache.set(`realestate/${property.realestate_id}`, $realestate);
+
     await Promise.all([
       this.fill_attr($property, property),
       this.fill_tags($property, property),
@@ -334,11 +338,7 @@ export default class PropertyView {
   static async fill_realestate($property, property) {
     //
     const { realestate_id, name, nickname } = await Cache.get(
-      `realestate/${property.realestate_id}`,
-      () => {
-        // console.log(`\n\n\ >>>>> GET realestate/${property.realestate_id}`);
-        return Realestate.findByPk(property.realestate_id);
-      }
+      `realestate/${property.realestate_id}`
     );
 
     $property.realestate = { id: realestate_id, name, nickname };
@@ -365,10 +365,7 @@ export default class PropertyView {
     $property.display_url = "";
     $property.picture_path = "";
 
-    const $realestate = await Cache.get(
-      `realestate/${property.realestate_id}`,
-      () => Realestate.findByPk(property.realestate_id)
-    );
+    const $realestate = await Cache.get(`realestate/${property.realestate_id}`);
 
     const pictureConfig = {
       type: $realestate.picture_service,
